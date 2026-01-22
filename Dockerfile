@@ -1,7 +1,6 @@
-FROM python:3.7.5
+FROM python:3.11-slim
 
-RUN apt update
-RUN apt install libsnmp-dev  -y
+RUN apt-get update && apt-get install -y libsnmp-dev gcc && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
 COPY resetter.py .
@@ -9,5 +8,5 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT python resetter.py
+ENTRYPOINT ["python", "resetter.py"]
 
